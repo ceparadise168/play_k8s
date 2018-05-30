@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: nginx
+  name: nginx-svc
+  namespace: default
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 80 #pod export port
+    nodePort: 31313
+  selector:     #pod label 想要力度更小的話可以再增加
+    app: nginx
+    mount: account
+    mount: password
+    sessionAffinity: None
+  type: NodePort
+

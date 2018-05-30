@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod-1
+  namespace: default
+  labels:   # 除了select label 用 ， get pod -l <labels name> 也可用作篩選
+    app: nginx
+    podn: p1
+spec:
+  containers:
+  - image: nginx:latest
+    imagePullPolicy: Always
+    name: nginx
+    ports:
+      - containerPort: 80
+        protocol: TCP
+    volumeMounts:
+    - name: account
+      mountPath: "/usr/share/www"
+      readOnly: true
+  volumes:
+  - name: account
+    secret:
+      secretName: account
+      # items:
+          # - key: account
+        #  path: .
